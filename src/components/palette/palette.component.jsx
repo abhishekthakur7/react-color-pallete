@@ -17,13 +17,15 @@ export default function Palette({ palette }) {
 
   return (
     <div className="palette">
-      <Slider
-        defaultValue={level}
-        min={100}
-        max={900}
-        step={100}
-        onAfterChange={handleSliderChange}
-      />
+      <div className="slider">
+        <Slider
+          defaultValue={level}
+          min={100}
+          max={900}
+          step={100}
+          onAfterChange={handleSliderChange}
+        />
+      </div>
       <div>
         <h2>Header</h2>
       </div>
