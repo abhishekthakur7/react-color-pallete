@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Select from "@material-ui/core/Select";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -6,7 +7,7 @@ import "./navbar.css";
 import MenuItem from "@material-ui/core/MenuItem";
 import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
-import { IconButton } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton";
 
 export default function Navbar({
   level,
@@ -29,7 +30,7 @@ export default function Navbar({
   return (
     <nav className="navbar">
       <div className="logo">
-        <a href="#">ReactColorPicker</a>
+        <Link to="/">ReactColorPicker</Link>
       </div>
       <div className="slider-container">
         <span>Level: {level}</span>
@@ -54,7 +55,9 @@ export default function Navbar({
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         open={openSnackbar}
         autoHideDuration={3000}
-        message={<span id="message-id">Format Changed To {format.toUpperCase()}!</span>}
+        message={
+          <span id="message-id">Format Changed To {format.toUpperCase()}!</span>
+        }
         ContentProps={{
           "aria-describedby": "message-id"
         }}
