@@ -3,7 +3,7 @@ import Navbar from "../navbar/navbar.component";
 import Colorbox from "../colorbox/colorbox.component";
 import "./palette.css";
 
-export default function Palette({ palette }) {
+export default function Palette({palette: { paletteName, colors, emoji }}) {
   const [level, setLevel] = React.useState(500);
   const [format, setFormat] = React.useState("hex");
 
@@ -15,8 +15,8 @@ export default function Palette({ palette }) {
     setFormat(value);
   };
 
-  const colorBoxes = palette.colors[level].map(color => (
-    <Colorbox background={color[format]} name={color.name} />
+  const colorBoxes = colors[level].map(color => (
+    <Colorbox background={color[format]} name={color.name} key={color.id}/>
   ));
 
   return (
@@ -27,7 +27,10 @@ export default function Palette({ palette }) {
         handleFormatChange={handleFormatChange}
       />
       <div className="palette-colors">{colorBoxes}</div>
-      <div>Footer</div>
+      <footer className="palette-footer">
+        {paletteName}
+        <span className="emoji">{emoji}</span>
+      </footer>
     </div>
   );
 }
