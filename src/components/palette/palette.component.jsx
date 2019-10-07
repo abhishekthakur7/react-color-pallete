@@ -3,7 +3,9 @@ import Navbar from "../navbar/navbar.component";
 import Colorbox from "../colorbox/colorbox.component";
 import "./palette.css";
 
-export default function Palette({palette: { paletteName, colors, emoji }}) {
+export default function Palette({
+  palette: { paletteName, colors, emoji, id }
+}) {
   const [level, setLevel] = React.useState(500);
   const [format, setFormat] = React.useState("hex");
 
@@ -16,7 +18,13 @@ export default function Palette({palette: { paletteName, colors, emoji }}) {
   };
 
   const colorBoxes = colors[level].map(color => (
-    <Colorbox background={color[format]} name={color.name} key={color.id}/>
+    <Colorbox
+      background={color[format]}
+      name={color.name}
+      key={color.id}
+      moreUrl={`/palette/${id}/${color.id}`}
+      showLink={true}
+    />
   ));
 
   return (
