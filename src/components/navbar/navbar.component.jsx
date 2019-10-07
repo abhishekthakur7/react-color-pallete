@@ -12,7 +12,8 @@ import IconButton from "@material-ui/core/IconButton";
 export default function Navbar({
   level,
   handleSliderChange,
-  handleFormatChange
+  handleFormatChange,
+  showingAllColors
 }) {
   const [format, setFormat] = React.useState("hex");
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
@@ -32,18 +33,20 @@ export default function Navbar({
       <div className="logo">
         <Link to="/">ReactColorPicker</Link>
       </div>
-      <div className="slider-container">
-        <span>Level: {level}</span>
-        <div className="slider">
-          <Slider
-            defaultValue={level}
-            min={100}
-            max={900}
-            step={100}
-            onAfterChange={handleSliderChange}
-          />
+      {showingAllColors && (
+        <div className="slider-container">
+          <span>Level: {level}</span>
+          <div className="slider">
+            <Slider
+              defaultValue={level}
+              min={100}
+              max={900}
+              step={100}
+              onAfterChange={handleSliderChange}
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="select-container">
         <Select value={format} onChange={handleChange}>
           <MenuItem value="hex">HEX - #ffffff</MenuItem>
