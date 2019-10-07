@@ -14,15 +14,19 @@ function App() {
 
   return (
     <Switch>
-      <Route exact path="/" render={() => <PaletteList palettes={seedColors} />}/>
+      <Route
+        exact
+        path="/"
+        render={routeprops => (
+          <PaletteList palettes={seedColors} {...routeprops} />
+        )}
+      />
       <Route
         exact
         path="/palette/:id"
         render={routeProps => (
           <Palette
-            palette={
-              generatePalette(findPalette(
-                routeProps.match.params.id))}
+            palette={generatePalette(findPalette(routeProps.match.params.id))}
           />
         )}
       />

@@ -11,7 +11,7 @@ const styles = {
     alignItems: "flex-start",
     justifyContent: "center"
   },
-  container : {
+  container: {
     width: "50%",
     display: "flex",
     alignItems: "flex-start",
@@ -33,7 +33,12 @@ const styles = {
   }
 };
 
-function PaletteList({ classes, palettes }) {
+function PaletteList({ classes, palettes, history }) {
+
+  const gotoPalette = (id) => {
+    history.push(`/palette/${id}`)
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.container}>
@@ -42,7 +47,7 @@ function PaletteList({ classes, palettes }) {
         </nav>
         <div className={classes.palettes}>
           {palettes.map(palette => (
-            <MiniPalette {...palette} />
+              <MiniPalette {...palette} handleClick={() => gotoPalette(palette.id)} />
           ))}
         </div>
       </div>
