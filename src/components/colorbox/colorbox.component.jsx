@@ -8,7 +8,7 @@ import "./colorbox.css";
 const styles = {
   colorBox: {
     width: "20%",
-    height: props => props.showingFullPalette ? "25%" : "50%",
+    height: props => (props.showingFullPalette ? "25%" : "50%"),
     margin: "0 auto",
     display: "inline-block",
     position: "relative",
@@ -57,9 +57,64 @@ const styles = {
     background: "rgba(255, 255, 255, 0.3)",
     fontSize: "1rem",
     lineHeight: "30px",
-    border: "none", 
+    border: "none",
     textDecoration: "none",
     opacity: "0"
+  },
+  boxContent: {
+    position: "absolute",
+    width: "100%",
+    left: "0px",
+    bottom: "0px",
+    padding: "10px",
+    color: "black",
+    letterSpacing: "1px",
+    fontSize: "12px"
+  },
+  copyOverlay: {
+    opacity: "0",
+    zIndex: "0",
+    width: "100%",
+    height: "100%",
+    transition: "transform 0.6s ease-in-out",
+    transform: "scale(0.1)"
+  },
+  showOverlay: {
+    opacity: "1",
+    transform: "scale(50)",
+    zIndex: "10",
+    position: "absolute"
+  },
+  copyMessage: {
+    position: "fixed",
+    top: "0",
+    bottom: "0",
+    right: "0",
+    left: "0",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    fontSze: "4rem",
+    transform: "scale(0.1)",
+    opacity: "0",
+    color: "white",
+    "& h1": {
+      fontWeight: "400",
+      textShadow: "1px 2px black",
+      background: "rgba(255, 255, 255, 0.2)",
+      width: "100%",
+      textAlign: "center",
+      marginBottom: "0",
+      padding: "1rem"
+    }
+  },
+  showMessage: {
+    opacity: "1",
+    transform: "scale(1)",
+    zIndex: "25",
+    transition: "all 0.4s ease-in-out",
+    transitionDelay: "0.3s"
   }
 };
 
@@ -76,14 +131,18 @@ function ColorBox({ background, name, moreUrl, showingFullPalette, classes }) {
       <div style={{ background }} className={classes.colorBox}>
         <div
           style={{ background }}
-          className={`copy-overlay ${isCopied && "show"}`}
+          className={`${classes.copyOverlay} ${isCopied &&
+            classes.showOverlay}`}
         />
-        <div className={`copy-msg ${isCopied && "show"}`}>
+        <div
+          className={`${classes.copyMessage} ${isCopied &&
+            classes.showMessage}`}
+        >
           <h1>Copied!</h1>
           <p className={classes.copyText}>{background}</p>
         </div>
-        <div className="copy-container">
-          <div className="box-content">
+        <div>
+          <div className={classes.boxContent}>
             <span className={classes.colorName}>{name}</span>
           </div>
           <button className={classes.copyButton}>Copy</button>
