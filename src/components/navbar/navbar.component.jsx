@@ -8,6 +8,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/styles";
+import logo from "../../logo.svg";
 import styles from "./navbar.styles";
 
 function Navbar({
@@ -33,7 +34,9 @@ function Navbar({
   return (
     <nav className={classes.navbar}>
       <div className={classes.logo}>
-        <Link to="/">ReactColorPicker</Link>
+        <Link to="/">
+          <img style={{ height: "30px" }} src={logo} alt="log" />
+        </Link>
       </div>
       {showingAllColors && (
         <div>
