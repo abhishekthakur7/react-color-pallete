@@ -1,7 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
@@ -74,13 +74,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function NewPaletteForm() {
+function NewPaletteForm({ savePalette, history }) {
   const classes = useStyles();
-  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [currentColor, setCurrentColor] = React.useState("blue");
   const [colors, setColors] = React.useState([{ color: "blue", name: "blue" }]);
-  const [newName, setNewName] = React.useState("");
+  const [newColorName, setNewColorName] = React.useState("");
+  const [newPaletteName, setNewPaletteName] = React.useState("");
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -97,14 +97,26 @@ function NewPaletteForm() {
   const addNewColor = () => {
     const newColor = {
       color: currentColor,
-      name: newName
+      name: newColorName
     };
     setColors([...colors, newColor]);
-    setNewName("");
+    setNewColorName("");
   };
 
   const handleChange = event => {
-    setNewName(event.target.value);
+    setNewColorName(event.target.value);
+  };
+
+  const handleClick = () => {
+    const paletteName = "new palette Name";
+    const newPalette = {
+      paletteName: paletteName,
+      id: paletteName.toLowerCase().replace(/ /g, "-"),
+      emoji: "ass",
+      colors
+    };
+    savePalette(newPalette);
+    history.push("/");
   };
 
   React.useEffect(() => {
@@ -121,6 +133,7 @@ function NewPaletteForm() {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}
@@ -138,6 +151,16 @@ function NewPaletteForm() {
           <Typography variant="h6" noWrap>
             Persistent drawer
           </Typography>
+          <ValidatorForm onSubmit={handleClick}>
+            <TextValidator
+              label="Palette Name"
+              value={newPaletteName}
+              onChange={event => setNewPaletteName(event.target.value)}
+            />
+            <Button variant="contained" color="primary" type="Submit">
+              Save Palette
+            </Button>
+          </ValidatorForm>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -170,7 +193,7 @@ function NewPaletteForm() {
         />
         <ValidatorForm onSubmit={addNewColor}>
           <TextValidator
-            value={newName}
+            value={newColorName}
             onChange={handleChange}
             validators={["required", "isColorNameUnique", "isColorUnique"]}
             errorMessages={[
