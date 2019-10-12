@@ -12,8 +12,9 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
-import DraggableColorBox from "../draggablecolorbox/draggablecolorbox.component";
+import DraggableColorList from "../draggablecolorlist/draggablecolorlist.component";
 import { ChromePicker } from "react-color";
+import {arrayMove} from "array-move";
 
 const drawerWidth = 300;
 
@@ -74,7 +75,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function NewPaletteForm({ savePalette, history }) {
+function NewPaletteForm({ savePalette, history, palettes }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [currentColor, setCurrentColor] = React.useState("blue");
@@ -103,15 +104,22 @@ function NewPaletteForm({ savePalette, history }) {
     setNewColorName("");
   };
 
+  const deleteColor = colorName => {
+    setColors(colors.filter(color => color.name !== colorName));
+  };
+
+  const onSortEnd = ({oldIndex, newIndex}) => {
+    setColors(arrayMove(colors, oldIndex, newIndex))
+  }
+
   const handleChange = event => {
     setNewColorName(event.target.value);
   };
 
   const handleClick = () => {
-    const paletteName = "new palette Name";
     const newPalette = {
-      paletteName: paletteName,
-      id: paletteName.toLowerCase().replace(/ /g, "-"),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, "-"),
       emoji: "ass",
       colors
     };
@@ -123,8 +131,13 @@ function NewPaletteForm({ savePalette, history }) {
     ValidatorForm.addValidationRule("isColorNameUnique", value =>
       colors.every(({ name }) => name.toLowerCase() !== value.toLowerCase())
     );
-    ValidatorForm.addValidationRule("isColorUnique", value =>
+    ValidatorForm.addValidationRule("isColorUnique", () =>
       colors.every(({ color }) => color !== currentColor)
+    );
+    ValidatorForm.addValidationRule("isPaletteNameUnique", value =>
+      palettes.every(
+        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+      )
     );
   });
 
@@ -156,8 +169,10 @@ function NewPaletteForm({ savePalette, history }) {
               label="Palette Name"
               value={newPaletteName}
               onChange={event => setNewPaletteName(event.target.value)}
+              validators={["required", "isPaletteNameUnique"]}
+              errorMessages={["Enter palette name", "Name already used"]}
             />
-            <Button variant="contained" color="primary" type="Submit">
+            <Button variant="contained" color="primary" type="submit">
               Save Palette
             </Button>
           </ValidatorForm>
@@ -218,9 +233,12 @@ function NewPaletteForm({ savePalette, history }) {
         })}
       >
         <div className={classes.drawerHeader} />
-        {colors.map(color => {
-          return <DraggableColorBox color={color.color} name={color.name} />;
-        })}
+        <DraggableColorList
+          colors={colors}
+          deleteColor={deleteColor}
+          axis="xy"
+          onSortEnd={onSortEnd}
+        />
       </main>
     </div>
   );
