@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../navbar/navbar.component";
-import Colorbox from "../colorbox/colorbox.component";
-import PaletteFooter from "../palettefooter/palettefooter.component";
+import Colorbox from "../colorBox/color-box.component";
+import PaletteFooter from "../paletteFooter/palette-footer.component";
 import { withStyles } from "@material-ui/styles";
 import styles from "./palette.styles";
 

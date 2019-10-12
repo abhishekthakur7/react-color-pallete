@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import PaletteMetaForm from "../palettemetaform/palettemetaform.component";
+import PaletteMetaForm from "../paletteMetaForm/palette-meta-form.component";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,28 +10,25 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import AddToPhotosIcon from "@material-ui/icons/AddToPhotos";
 import Button from "@material-ui/core/Button";
-import styles from "./paletteformnav.styles";
+import styles from "./palette-form-nav.styles";
 
 class PaletteFormNav extends Component {
   constructor(props) {
     super(props);
     this.state = { newPaletteName: "", formShowing: false };
-    this.handleChange = this.handleChange.bind(this);
-    this.showForm = this.showForm.bind(this);
-    this.hideForm = this.hideForm.bind(this);
   }
 
-  handleChange(evt) {
+  handleChange = evt => {
     this.setState({
       [evt.target.name]: evt.target.value
     });
-  }
-  showForm() {
+  };
+  showForm = () => {
     this.setState({ formShowing: true });
-  }
-  hideForm() {
+  };
+  hideForm = () => {
     this.setState({ formShowing: false });
-  }
+  };
   render() {
     const {
       classes,
@@ -45,16 +42,16 @@ class PaletteFormNav extends Component {
       <div className={classes.root}>
         <CssBaseline />
         <AppBar
-          position='fixed'
-          color='default'
+          position="fixed"
+          color="default"
           className={classNames(classes.appBar, {
             [classes.appBarShift]: open
           })}
         >
           <Toolbar disableGutters={!open}>
             <IconButton
-              color='inherit'
-              aria-label='Open drawer'
+              color="inherit"
+              aria-label="Open drawer"
               onClick={handleDrawerOpen}
               className={classNames(classes.menuButton, {
                 [classes.hide]: open
@@ -62,23 +59,23 @@ class PaletteFormNav extends Component {
             >
               <AddToPhotosIcon />
             </IconButton>
-            <Typography variant='h6' color='inherit' noWrap>
+            <Typography variant="h6" color="inherit" noWrap>
               Create A Palette
             </Typography>
           </Toolbar>
           <div className={classes.navBtns}>
-            <Link to='/'>
+            <Link to="/">
               <Button
-                variant='contained'
-                color='secondary'
+                variant="contained"
+                color="secondary"
                 className={classes.button}
               >
                 Go Back
               </Button>
             </Link>
             <Button
-              variant='contained'
-              color='primary'
+              variant="contained"
+              color="primary"
               onClick={this.showForm}
               className={classes.button}
             >

@@ -1,18 +1,18 @@
 import React from "react";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
-import PaletteFormNav from "../paletteformnav/paletteformnav.component";
-import ColorPickerForm from "../colorpickerform/colorpickerform.component";
+import PaletteFormNav from "../paletteFormNav/palette-form-nav.component";
+import ColorPickerForm from "../colorPickerForm/color-picker-form.component";
 import Drawer from "@material-ui/core/Drawer";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Button from "@material-ui/core/Button";
-import DraggableColorList from "../draggablecolorlist/draggablecolorlist.component";
+import DraggableColorList from "../draggableColorList/draggable-color-list.component";
 import { arrayMove } from "react-sortable-hoc";
-import styles from "./newpaletteform.styles";
-import seedColors from "../../seedColors";
+import styles from "./new-palette-form.styles";
+import seedColors from "../../utils/seedColors";
 
 function NewPaletteForm({
   savePalette,

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/styles";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import styles from "./colorbox.styles";
+import styles from "./color-box.styles";
 
 function ColorBox({ background, name, moreUrl, showingFullPalette, classes }) {
   const [isCopied, setIsCopied] = React.useState(false);

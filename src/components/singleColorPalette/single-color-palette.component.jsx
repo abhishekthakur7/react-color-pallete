@@ -1,10 +1,10 @@
 import React from "react";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
-import ColorBox from "../colorbox/colorbox.component";
+import ColorBox from "../colorBox/color-box.component";
 import Navbar from "../navbar/navbar.component";
-import styles from "./palette.styles";
-import PaletteFooter from "../palettefooter/palettefooter.component";
+import PaletteFooter from "../paletteFooter/palette-footer.component";
+import styles from "./single-color-palette.styles";
 
 function SingleColorPalette({ palette, colorId, classes }) {
   const [format, setFormat] = React.useState("hex");

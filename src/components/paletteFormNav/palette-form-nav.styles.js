@@ -1,5 +1,5 @@
-import { DRAWER_WIDTH } from "../../constants";
-import sizes from "../sizes";
+import { DRAWER_WIDTH } from "../../utils/constants";
+import sizes from "../../utils/sizes";
 
 const drawerWidth = DRAWER_WIDTH;
 const styles = theme => ({
